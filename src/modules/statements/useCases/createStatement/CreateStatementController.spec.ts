@@ -4,7 +4,7 @@ import { Connection } from 'typeorm';
 import { app } from '../../../../app';
 import createConnection from '../../../../database';
 
-let connection: Connection
+let connection: Connection;
 
 describe("Create statement", () => {
   beforeAll(async () => {
