@@ -28,16 +28,4 @@ describe("Create user", () => {
 
     expect(response.status).toBe(201);
   });
-
-  it("should not be able to create a new user with same email", async () => {
-    const data = {
-      name: "Test 2",
-      email: "test@test.com",
-      password: "12345",
-    };
-
-    const response = await request(app).post("/api/v1/users").send(data);
-
-    expect(response.status).toBe(400);
-  });
 });
