@@ -1,5 +1,6 @@
-import { injectable } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { IUsersRepository } from "../../../users/repositories/IUsersRepository";
+import { Statement } from "../../entities/Statement";
 import { IStatementsRepository } from "../../repositories/IStatementsRepository";
 import { TransferValuesError } from './TransferValuesError';
 
@@ -16,13 +17,16 @@ enum OperationType {
   TRANSFER = 'transfer',
 }
 
+@injectable()
 class TransferValuesUseCase {
   constructor(
+    @inject("StatementsRepository")
     private statementsRepository: IStatementsRepository,
+    @inject("UsersRepository")
     private usersRepository: IUsersRepository
   ) {}
 
-  async execute({ amount, recipient_id, description, sender_id }: IRequest) {
+  async execute({ amount, recipient_id, description, sender_id }: IRequest): Promise<Statement> {
     const recipientUser = await this.usersRepository.findById(recipient_id);
 
     if (!recipientUser) {
@@ -39,6 +43,7 @@ class TransferValuesUseCase {
       amount,
       description,
       user_id: recipient_id,
+      sender_id,
       type: OperationType.TRANSFER,
     });
 
