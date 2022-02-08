@@ -11,6 +11,7 @@ let getStatementOperationUseCase: GetStatementOperationUseCase;
 enum OperationType {
   DEPOSIT = 'deposit',
   WITHDRAW = 'withdraw',
+  TRANSFER = 'transfer'
 }
 
 
