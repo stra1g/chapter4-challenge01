@@ -43,7 +43,10 @@ export class StatementsRepository implements IStatementsRepository {
     >
   {
     const statement = await this.repository.find({
-      where: { user_id }
+      where: [
+        { user_id },
+        { sender_id: user_id }
+      ]
     });
 
     const balance = statement.reduce((acc, operation) => {
